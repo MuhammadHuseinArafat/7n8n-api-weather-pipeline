@@ -1,6 +1,6 @@
 # 7n8n-api-weather-pipeline
 
-# 🌤️ Project 08: Automated API Data Pipeline (GET to POST)
+# 🌤️ Project 07: Automated API Data Pipeline (GET to POST)
 
 ![n8n](https://img.shields.io/badge/n8n-FF6D5W?style=for-the-badge&logo=n8n&logoColor=white)
 ![API Integration](https://img.shields.io/badge/API_Integration-005571?style=for-the-badge&logo=api&logoColor=white)
