@@ -1,0 +1,131 @@
+{
+  "name": "Project 07: Automated API Data Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        48,
+        48
+      ],
+      "id": "08316df9-ad92-4600-bc5f-4a9dae85dbc7",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://api.open-meteo.com/v1/forecast?latitude=-6.2088&longitude=106.8456&current_weather=true",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        224,
+        48
+      ],
+      "id": "b665a807-d147-4338-8e98-5273a10293c4",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "094a89a0-5f45-409a-b393-ffd9173def52",
+              "name": "kota",
+              "value": "Jakarta",
+              "type": "string"
+            },
+            {
+              "id": "9e97ce59-0461-4103-a7f1-2fab92ab6c69",
+              "name": "suhu_saat_ini",
+              "value": "={{ $json.current_weather.temperature }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        378.5,
+        48
+      ],
+      "id": "62e6baa8-02ca-4f10-9a93-a2123102c70a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://webhook.site/a1f4f12a-76a2-47fe-a3ac-44f275a8d4c8",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "\n[\n  \n{\n  \n  \n\"kota\": \n\"Jakarta\",\n  \n  \n\"suhu_saat_ini\": \n33.7\n  \n}\n]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        544,
+        48
+      ],
+      "id": "cb9472b8-3080-4944-b557-4dc165ae92b3",
+      "name": "HTTP Request1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "0ddb8b70-ec60-4ff9-9618-dcb1ccc7f83a",
+  "meta": {
+    "instanceId": "78020135ce1e18d23f1d2826518029bcddfec44dbf18b7fe235e495f881aa588"
+  },
+  "nodeGroups": [],
+  "id": "VaGH9LbGbb7K4DVm",
+  "tags": []
+}
